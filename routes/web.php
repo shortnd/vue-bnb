@@ -11,4 +11,5 @@
 |
 */
 
+Route::get('/', 'ListingController@get_home_web');
 Route::get('/listings/{listing}', 'ListingController@get_listing_web');
