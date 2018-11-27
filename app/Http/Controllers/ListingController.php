@@ -6,30 +6,34 @@ use App\Listing;
 
 class ListingController extends Controller
 {
-    public function get_home_web()
+    public function get_listing($listing)
     {
-        return view('app', ['listing' => []]);
-    }
-
-    public function add_image_urls($listing, $id)
-    {
-        for ($i = 1; $i <= 4; $i++) {
-            $listing['image_' . $i] = asset(
-                'images/' . $id . '/Image_' . $i . '.jpg'
+        $model = $listing->toArray();
+        for ($i=1; $i < 4; $i++) { 
+            $model['image_' . $i] = asset(
+                'images/'. $listing->id . '/Image_' . $i . '.jpg'
             );
         }
-        return $listing;
+        return collect(['listing' => $model]);
+    }
+    public function get_home_web()
+    {
+        $collection = Listing::all([
+            'id', 'address', 'title', 'price_per_night'
+        ]);
+        $data = collect(['listings' => $collection]);
+        return view('app')->withData($data);
     }
 
     public function get_listing_web(Listing $listing)
     {
-        $listing = $this->add_image_urls($listing, $listing->id);
-        return view('app')->withListing($listing);
+        $data = $this->get_listing($listing);
+        return response($data);
     }
 
     public function get_listing_api(Listing $listing)
     {
-        $listing = $this->add_image_urls($listing, $listing->id);
-        return response($listing);
+        $data = $this->get_listing($listing);
+        return response($data);
     }
 }

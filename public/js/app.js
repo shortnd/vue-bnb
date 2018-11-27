@@ -12277,8 +12277,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var model = JSON.parse(window.vuebnb_listing_model);
-model = Object(__WEBPACK_IMPORTED_MODULE_0__helper_js__["a" /* populateAmenitiesAndPrices */])(model);
+var serverData = JSON.parse(window.vuebnb_server_data);
+serverData = Object(__WEBPACK_IMPORTED_MODULE_0__helper_js__["a" /* populateAmenitiesAndPrices */])(serverData.listing);
 
 
 
@@ -12287,7 +12287,7 @@ model = Object(__WEBPACK_IMPORTED_MODULE_0__helper_js__["a" /* populateAmenities
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return Object.assign(model, {});
+    return Object.assign(serverData, {});
   },
 
   components: {
