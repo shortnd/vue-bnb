@@ -2436,6 +2436,7 @@
   clip: auto;
 }
 
+html, body{overflow-x:hidden}
 body{font-family:'Open Sans',sans-serif;color:#484848;font-size:17px;margin:0}
 .container{margin:0 auto}
 @media (min-width:744px){
