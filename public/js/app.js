@@ -10238,7 +10238,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
     path: '/listings/:listing',
     component: __WEBPACK_IMPORTED_MODULE_3__components_ListingPage_vue___default.a,
     name: 'listing'
-  }]
+  }],
+  scrollBehavior: function scrollBehavior(to, from, savedPostition) {
+    return { x: 0, y: 0 };
+  }
 }));
 
 /***/ }),
