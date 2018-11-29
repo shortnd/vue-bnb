@@ -7,20 +7,20 @@
       </router-link>
     </div>
     <router-view></router-view>
+    <custom-footer></custom-footer>
   </div>
 </template>
 
 <script>
+import CustomFooter from './CustomFooter.vue';
 export default {
-
+  components: {
+    CustomFooter
+  }
 }
 </script>
 
 <style>
-  /* #toolbar {
-    border-bottom: 1px solid #e4e4e4;
-    box-shadow: 0 1px 5px rgba(0,0,0,1);
-  } */
   #toolbar a {
     display: flex;
     align-items: center;
