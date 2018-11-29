@@ -16,14 +16,21 @@
 import { groupByCountry } from "../helper.js";
 import ListingSummary from './ListingSummary.vue';
 import axios from 'axios';
+import routeMixin from '../route-mixin.js';
 
 export default {
+  mixins: [ routeMixin ],
   components: {
     ListingSummary
   },
   data() {
     return { listing_groups: [] }
   },
+  methods: {
+    assignData({ listings }) {
+      this.listing_groups = groupByCountry(listings);
+    }
+  }
 }
 </script>
 
