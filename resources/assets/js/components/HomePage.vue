@@ -15,6 +15,7 @@
 <script>
 import { groupByCountry } from "../helper.js";
 import ListingSummary from './ListingSummary.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -23,16 +24,6 @@ export default {
   data() {
     return { listing_groups: [] }
   },
-  beforeRouteEnter(to, from, next) {
-    let serverData = JSON.parse(window.vuebnb_server_data);
-    if (to.path === serverData.path) {
-      let listing_groups = groupByCountry(serverData.listings);
-      next(component => component.listing_groups = listing_groups)
-    } else {
-      console.log('Need to get data with AJAX!');
-      next(false);
-    }
-  }
 }
 </script>
 
