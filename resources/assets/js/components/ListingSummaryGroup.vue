@@ -3,15 +3,22 @@
     <h2>Places in {{ country }}</h2>
     <div class="listing-carousel">
       <div class="controls">
-        <carousel-control dir="left" @change-image="change"></carousel-control>
-        <carousel-control dir="right" @change-image="change"></carousel-control>
+        <carousel-control
+          dir="left"
+          @change-image="change"
+          :style="leftArrowStyle"></carousel-control>
+        <carousel-control
+          dir="right"
+          @change-image="change"
+          :style="rightArrowStyle"></carousel-control>
       </div>
       <div class="listing-summaries-wrapper">
-        <div class="listing-summaries" :style="style">
+        <div class="listing-summaries">
           <listing-summary
             v-for="listing in listings"
             :key="listing.id"
-            :listing="listing">
+            :listing="listing"
+            :style="style">
             </listing-summary>
         </div>
       </div>
@@ -48,6 +55,16 @@ export default {
   computed: {
     style() {
       return { transform: `translateX(${this.offset * -listingSummaryWidth}px)`}
+    },
+    leftArrowStyle() {
+      return {
+        visibility: (this.offset > 0 ? 'visible' : 'hidden')
+      }
+    },
+    rightArrowStyle() {
+      return {
+        visibility: (this.offset < (this.listings.length - rowSize) ? 'visible' : 'hidden')
+      }
     }
   }
 }
@@ -67,6 +84,7 @@ export default {
   }
   .listing-summaries > .listing-summary {
     margin-right: 15px;
+    transition: transform .5s;
   }
   .listing-summaries > .listing-summary:last-child {
     margin-right: 0;

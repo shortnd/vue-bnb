@@ -73,6 +73,7 @@ footer p img {
 }
 .listing-summaries > .listing-summary {
   margin-right: 15px;
+  transition: transform .5s;
 }
 .listing-summaries > .listing-summary:last-child {
   margin-right: 0;

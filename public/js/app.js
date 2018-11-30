@@ -13240,6 +13240,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -13270,6 +13277,16 @@ var listingSummaryWidth = 365;
   computed: {
     style: function style() {
       return { transform: 'translateX(' + this.offset * -listingSummaryWidth + 'px)' };
+    },
+    leftArrowStyle: function leftArrowStyle() {
+      return {
+        visibility: this.offset > 0 ? 'visible' : 'hidden'
+      };
+    },
+    rightArrowStyle: function rightArrowStyle() {
+      return {
+        visibility: this.offset < this.listings.length - rowSize ? 'visible' : 'hidden'
+      };
     }
   }
 });
@@ -13484,11 +13501,13 @@ var render = function() {
         { staticClass: "controls" },
         [
           _c("carousel-control", {
+            style: _vm.leftArrowStyle,
             attrs: { dir: "left" },
             on: { "change-image": _vm.change }
           }),
           _vm._v(" "),
           _c("carousel-control", {
+            style: _vm.rightArrowStyle,
             attrs: { dir: "right" },
             on: { "change-image": _vm.change }
           })
@@ -13499,10 +13518,11 @@ var render = function() {
       _c("div", { staticClass: "listing-summaries-wrapper" }, [
         _c(
           "div",
-          { staticClass: "listing-summaries", style: _vm.style },
+          { staticClass: "listing-summaries" },
           _vm._l(_vm.listings, function(listing) {
             return _c("listing-summary", {
               key: listing.id,
+              style: _vm.style,
               attrs: { listing: listing }
             })
           })
