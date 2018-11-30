@@ -1,27 +1,23 @@
 <template>
   <div class="home-container">
-    <div v-for="(group, country, index) in listing_groups" :key="index" class="listing-summary-group">
-      <h2>Places in {{ country }}</h2>
-      <div class="listing-summaries">
-        <listing-summary
-          v-for="listing in group"
-          :key="listing.id"
-          :listing="listing"></listing-summary>
-      </div>
-    </div>
+    <listing-summary-group
+      v-for="(group, country) in listing_groups"
+      :key="country"
+      :listings="group"
+      :country="country"
+      class="listing-summary-group"></listing-summary-group>
   </div>
 </template>
 
 <script>
 import { groupByCountry } from "../helper.js";
-import ListingSummary from './ListingSummary.vue';
-import axios from 'axios';
+import ListingSummaryGroup from './ListingSummaryGroup.vue';
 import routeMixin from '../route-mixin.js';
 
 export default {
   mixins: [ routeMixin ],
   components: {
-    ListingSummary
+    ListingSummaryGroup
   },
   data() {
     return { listing_groups: [] }
@@ -48,5 +44,24 @@ export default {
   }
   .listing-summaries > .listing-summary:last-child {
     margin-right: 0;
+  }
+  .listing-carousel {
+    position: relative;
+  }
+  .listing-carousel .controls {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: calc(50% - 45px);
+    left: -45px;
+    width: calc(100% + 90px);
+  }
+  .listing-carousel .controls .carousel-control {
+    color: #c5c5c5;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .listing-summaries-wrapper {
+    overflow: hidden;
   }
 </style>
