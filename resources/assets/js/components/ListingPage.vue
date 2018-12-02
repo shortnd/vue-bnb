@@ -3,6 +3,7 @@
     <header-image
       v-if="images[0]"
       :image-url="images[0]"
+      :id="id"
       @header-clicked="openModal"></header-image>
       <div class="listing-container">
         <div class="heading">
@@ -55,7 +56,8 @@ export default {
       address: null,
       amenities: [],
       prices: [],
-      images: []
+      images: [],
+      id: null
     }
   },
   components: {

@@ -81,6 +81,7 @@ footer p img {
 
 .listing-summary {
   flex: 0 0 auto;
+  position: relative;
 }
 .listing-summary a {
   text-decoration: none;
@@ -113,6 +114,31 @@ footer p img {
   font-size: 14px;
   line-height: 18px;
 }
+@media (max-width:400px) {
+.listing-summary .listing-save {
+   left: 15px;
+   right: auto;
+}
+}
+
+.listing-save {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+.listing-save .fa-heart-o {
+  color: #ffffff;
+}
+.listing-save .fa-heart {
+  color: #ff5a5f;
+}
+.listing-save i {
+  padding-right: 4px;
+}
+.listing-save button .fa-heart-o {
+  color: #808080;
+}
 
 .carousel-control{padding:1em;color:#fff;opacity:.85;cursor:pointer
 }
@@ -120,6 +146,8 @@ footer p img {
 .carousel-control{font-style:3rem
 }
 }
+
+
 
 
 
