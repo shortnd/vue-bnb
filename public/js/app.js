@@ -10402,7 +10402,9 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 
 router.beforeEach(function (to, from, next) {
   var serverData = JSON.parse(window.vuebnb_server_data);
-  if (!serverData.path || to.path !== serverData.path) {
+  if (to.name === 'listing' ? __WEBPACK_IMPORTED_MODULE_5__store__["a" /* default */].getters.getListing(to.params.listing) : __WEBPACK_IMPORTED_MODULE_5__store__["a" /* default */].state.listing_summaries.length > 0) {
+    next();
+  } else if (!serverData.path || to.path !== serverData.path) {
     __WEBPACK_IMPORTED_MODULE_4_axios___default.a.get('/api' + to.path).then(function (_ref) {
       var data = _ref.data;
 
@@ -14716,12 +14718,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   computed: {
     listing: function listing() {
-      var _this = this;
-
-      var listing = this.$store.state.listings.find(function (listing) {
-        return listing.id == _this.$route.params.listing;
-      });
-      return Object(__WEBPACK_IMPORTED_MODULE_0__helper_js__["b" /* populateAmenitiesAndPrices */])(listing);
+      return Object(__WEBPACK_IMPORTED_MODULE_0__helper_js__["b" /* populateAmenitiesAndPrices */])(this.$store.getters.getListing(this.$route.params.listing));
     }
   },
   methods: {
@@ -15518,6 +15515,20 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
     saved: [],
     listing_summaries: [],
     listings: []
+  },
+  getters: {
+    savedSummaries: function savedSummaries(state) {
+      return state.listing_summaries.filter(function (item) {
+        return state.saved.indexOf(item.id) > -1;
+      });
+    },
+    getListing: function getListing(state) {
+      return function (id) {
+        return state.listings.find(function (listing) {
+          return id == listing.id;
+        });
+      };
+    }
   },
   mutations: {
     toggleSaved: function toggleSaved(state, listingId) {
