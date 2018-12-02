@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomePage from './components/HomePage.vue';
 import ListingPage from './components/ListingPage.vue';
+import SavedPage from './components/SavedPage.vue';
 import axios from 'axios';
 import store from './store';
 
@@ -19,6 +20,11 @@ let router = new VueRouter({
       path: '/listings/:listing',
       component: ListingPage,
       name: 'listing'
+    },
+    {
+      path: '/saved',
+      component: SavedPage,
+      name: 'saved'
     }
   ],
   scrollBehavior (to, from, savedPostition) {

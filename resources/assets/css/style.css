@@ -26,4 +26,13 @@ button{text-align:center;vertical-align:middle;user-select:none;white-space:nowr
 .home-container{margin:0 auto;padding:0 25px}
 @media (min-width:1131px){
 .home-container{width:1080px}
+.saved-container {
+  width: 1095px;
+  padding-left: 40px;
+  margin-bottom: -10px;
+}
+}
+.saved-container {
+  margin: 0 auto;
+  padding: 0 25px;
 }
