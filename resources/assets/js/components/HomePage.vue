@@ -12,15 +12,15 @@
 <script>
 import { groupByCountry } from "../helper.js";
 import ListingSummaryGroup from './ListingSummaryGroup.vue';
-import routeMixin from '../route-mixin.js';
 
 export default {
-  mixins: [ routeMixin ],
   components: {
     ListingSummaryGroup
   },
-  data() {
-    return { listing_groups: [] }
+  computed: {
+    listing_groups() {
+      return groupByCountry(this.$store.state.listing_summaries);
+    }
   },
   methods: {
     assignData({ listings }) {

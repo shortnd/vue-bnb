@@ -9098,40 +9098,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-
-
-function getData(to) {
-  return new Promise(function (resolve) {
-    var serverData = JSON.parse(window.vuebnb_server_data);
-    if (!serverData.path || to.path !== serverData.path) {
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api' + to.path).then(function (_ref) {
-        var data = _ref.data;
-
-        resolve(data);
-      });
-    } else {
-      resolve(serverData);
-    }
-  });
-}
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
-    getData(to).then(function (data) {
-      next(function (component) {
-        return component.assignData(data);
-      });
-    });
-  }
-});
-
-/***/ }),
+/* 20 */,
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10405,6 +10372,11 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_HomePage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_HomePage_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_ListingPage_vue__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_ListingPage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_ListingPage_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store__ = __webpack_require__(128);
+
+
 
 
 
@@ -10412,7 +10384,7 @@ if (false) {
 
 __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
-/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
+var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   mode: 'history',
   routes: [{
     path: '/',
@@ -10426,7 +10398,24 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
   scrollBehavior: function scrollBehavior(to, from, savedPostition) {
     return { x: 0, y: 0 };
   }
-}));
+});
+
+router.beforeEach(function (to, from, next) {
+  var serverData = JSON.parse(window.vuebnb_server_data);
+  if (!serverData.path || to.path !== serverData.path) {
+    __WEBPACK_IMPORTED_MODULE_4_axios___default.a.get('/api' + to.path).then(function (_ref) {
+      var data = _ref.data;
+
+      __WEBPACK_IMPORTED_MODULE_5__store__["a" /* default */].commit('addData', { route: to.name, data: data });
+      next();
+    });
+  } else {
+    __WEBPACK_IMPORTED_MODULE_5__store__["a" /* default */].commit('addData', { route: to.name, data: serverData });
+    next();
+  }
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ }),
 /* 65 */
@@ -13119,7 +13108,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper_js__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ListingSummaryGroup_vue__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ListingSummaryGroup_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ListingSummaryGroup_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__route_mixin_js__ = __webpack_require__(20);
 //
 //
 //
@@ -13131,20 +13119,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_2__route_mixin_js__["a" /* default */]],
   components: {
     ListingSummaryGroup: __WEBPACK_IMPORTED_MODULE_1__ListingSummaryGroup_vue___default.a
   },
-  data: function data() {
-    return { listing_groups: [] };
+  computed: {
+    listing_groups: function listing_groups() {
+      return Object(__WEBPACK_IMPORTED_MODULE_0__helper_js__["a" /* groupByCountry */])(this.$store.state.listing_summaries);
+    }
   },
-
   methods: {
     assignData: function assignData(_ref) {
       var listings = _ref.listings;
@@ -14664,17 +14651,16 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper_js__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__route_mixin_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__HeaderImage_vue__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__HeaderImage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__HeaderImage_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ImageCarousel_vue__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ImageCarousel_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__ImageCarousel_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ModalWindow_vue__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ModalWindow_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__ModalWindow_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__FeatureList_vue__ = __webpack_require__(119);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__FeatureList_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__FeatureList_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ExpandableText_vue__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ExpandableText_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__ExpandableText_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HeaderImage_vue__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HeaderImage_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__HeaderImage_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ImageCarousel_vue__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ImageCarousel_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ImageCarousel_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ModalWindow_vue__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ModalWindow_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__ModalWindow_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FeatureList_vue__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FeatureList_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__FeatureList_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ExpandableText_vue__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ExpandableText_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__ExpandableText_vue__);
 //
 //
 //
@@ -14714,10 +14700,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-
-
-var serverData = JSON.parse(window.vuebnb_server_data);
-serverData = Object(__WEBPACK_IMPORTED_MODULE_0__helper_js__["b" /* populateAmenitiesAndPrices */])(serverData.listing);
 
 
 
@@ -14725,25 +14707,22 @@ serverData = Object(__WEBPACK_IMPORTED_MODULE_0__helper_js__["b" /* populateAmen
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__route_mixin_js__["a" /* default */]],
-  data: function data() {
-    return {
-      title: null,
-      about: null,
-      address: null,
-      amenities: [],
-      prices: [],
-      images: [],
-      id: null
-    };
-  },
-
   components: {
-    HeaderImage: __WEBPACK_IMPORTED_MODULE_2__HeaderImage_vue___default.a,
-    ImageCarousel: __WEBPACK_IMPORTED_MODULE_3__ImageCarousel_vue___default.a,
-    ModalWindow: __WEBPACK_IMPORTED_MODULE_4__ModalWindow_vue___default.a,
-    FeatureList: __WEBPACK_IMPORTED_MODULE_5__FeatureList_vue___default.a,
-    ExpandableText: __WEBPACK_IMPORTED_MODULE_6__ExpandableText_vue___default.a
+    HeaderImage: __WEBPACK_IMPORTED_MODULE_1__HeaderImage_vue___default.a,
+    ImageCarousel: __WEBPACK_IMPORTED_MODULE_2__ImageCarousel_vue___default.a,
+    ModalWindow: __WEBPACK_IMPORTED_MODULE_3__ModalWindow_vue___default.a,
+    FeatureList: __WEBPACK_IMPORTED_MODULE_4__FeatureList_vue___default.a,
+    ExpandableText: __WEBPACK_IMPORTED_MODULE_5__ExpandableText_vue___default.a
+  },
+  computed: {
+    listing: function listing() {
+      var _this = this;
+
+      var listing = this.$store.state.listings.find(function (listing) {
+        return listing.id == _this.$route.params.listing;
+      });
+      return Object(__WEBPACK_IMPORTED_MODULE_0__helper_js__["b" /* populateAmenitiesAndPrices */])(listing);
+    }
   },
   methods: {
     assignData: function assignData(_ref) {
@@ -15436,18 +15415,18 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.images[0]
+      _vm.listing.images[0]
         ? _c("header-image", {
-            attrs: { "image-url": _vm.images[0], id: _vm.id },
+            attrs: { "image-url": _vm.listing.images[0], id: _vm.listing.id },
             on: { "header-clicked": _vm.openModal }
           })
         : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "listing-container" }, [
         _c("div", { staticClass: "heading" }, [
-          _c("h1", [_vm._v(_vm._s(_vm.title))]),
+          _c("h1", [_vm._v(_vm._s(_vm.listing.title))]),
           _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(_vm.address))])
+          _c("p", [_vm._v(_vm._s(_vm.listing.address))])
         ]),
         _vm._v(" "),
         _c("hr"),
@@ -15458,7 +15437,7 @@ var render = function() {
           [
             _c("h2", [_vm._v("About this listing")]),
             _vm._v(" "),
-            _c("expandable-text", [_vm._v(_vm._s(_vm.about))])
+            _c("expandable-text", [_vm._v(_vm._s(_vm.listing.about))])
           ],
           1
         ),
@@ -15468,7 +15447,7 @@ var render = function() {
           { staticClass: "lists" },
           [
             _c("feature-list", {
-              attrs: { title: "Amenities", items: _vm.amenities },
+              attrs: { title: "Amenities", items: _vm.listing.amenities },
               scopedSlots: _vm._u([
                 {
                   key: "default",
@@ -15484,7 +15463,7 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("feature-list", {
-              attrs: { title: "Prices", items: _vm.prices },
+              attrs: { title: "Prices", items: _vm.listing.prices },
               scopedSlots: _vm._u([
                 {
                   key: "default",
@@ -15505,7 +15484,7 @@ var render = function() {
       _c(
         "modal-window",
         { ref: "imagemodal" },
-        [_c("image-carousel", { attrs: { images: _vm.images } })],
+        [_c("image-carousel", { attrs: { images: _vm.listing.images } })],
         1
       )
     ],
@@ -15536,7 +15515,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
   state: {
-    saved: []
+    saved: [],
+    listing_summaries: [],
+    listings: []
   },
   mutations: {
     toggleSaved: function toggleSaved(state, listingId) {
@@ -15547,6 +15528,16 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
         state.saved.push(listingId);
       } else {
         state.saved.splice(index, 1);
+      }
+    },
+    addData: function addData(state, _ref) {
+      var route = _ref.route,
+          data = _ref.data;
+
+      if (route === 'listing') {
+        state.listings.push(data.listing);
+      } else {
+        state.listing_summaries = data.listings;
       }
     }
   }
