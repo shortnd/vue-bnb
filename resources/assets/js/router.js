@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import HomePage from './components/HomePage.vue';
 import ListingPage from './components/ListingPage.vue';
 import SavedPage from './components/SavedPage.vue';
+import LoginPage from './components/LoginPage.vue';
 import axios from 'axios';
 import store from './store';
 
@@ -24,7 +25,12 @@ let router = new VueRouter({
     {
       path: '/saved',
       component: SavedPage,
-      name: 'saved'
+      name: 'saved',
+    },
+    {
+      path: '/login',
+      component: LoginPage,
+      name: 'login'
     }
   ],
   scrollBehavior (to, from, savedPostition) {
@@ -37,9 +43,10 @@ router.beforeEach((to, from, next) => {
   if (
     to.name === 'listing'
       ? store.getters.getListing(to.params.listing)
-      : store.state.listing_summaries.length > 0
+      : store.state.listing_summaries.length > 0 ||
+      to.name === 'login'
   ) {
-    next()
+    next();
   } else if (!serverData.path || to.path !== serverData.path) {
     axios.get(`/api${to.path}`)
       .then(({data}) => {

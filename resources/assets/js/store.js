@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import router from './router';
 
 Vue.use(Vuex);
 
@@ -8,6 +9,7 @@ export default new Vuex.Store({
     saved: [],
     listing_summaries: [],
     listings: [],
+    auth: false,
   },
   getters: {
     savedSummaries(state) {
@@ -21,14 +23,21 @@ export default new Vuex.Store({
   },
   mutations: {
     toggleSaved(state, listingId) {
-      let index = state.saved.findIndex(saved => saved === listingId);
-      if (index === -1) {
-        state.saved.push(listingId);
+      if (state.auth) {
+        let index = state.saved.findIndex(saved => saved === listingId);
+        if (index === -1) {
+          state.saved.push(listingId);
+        } else {
+          state.saved.splice(index, 1);
+        }
       } else {
-        state.saved.splice(index, 1);
+        router.push('/login');
       }
     },
     addData(state, { route, data }) {
+      if (data.auth) {
+        state.auth = data.auth
+      }
       if (route === 'listing') {
         state.listings.push(data.listing);
       } else {

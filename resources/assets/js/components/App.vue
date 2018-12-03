@@ -6,8 +6,17 @@
         <h2>vuebnb</h2>
       </router-link>
       <ul class="links">
-        <li>
+        <li v-if="$store.state.auth">
           <router-link :to="{ name: 'saved' }">Saved</router-link>
+        </li>
+        <li v-if="$store.state.auth">
+          <a @click="logout">Log Out</a>
+          <form style="display:hidden" @submit.prevent="logout" id="logout">
+            <input type="hidden" name="_token" :value="csrf_token">
+          </form>
+        </li>
+        <li v-else>
+          <router-link :to="{ name: 'login' }">Login</router-link>
         </li>
       </ul>
     </div>
@@ -17,10 +26,21 @@
 </template>
 
 <script>
+import axios from 'axios';
 import CustomFooter from './CustomFooter.vue';
 export default {
+  data() {
+    return {
+      csrf_token: window.csrf_token
+    }
+  },
   components: {
     CustomFooter
+  },
+  methods: {
+    logout() {
+      axios.post('/logout').then((res) => this.$router.push({ name: 'home' }))
+    }
   }
 }
 </script>
