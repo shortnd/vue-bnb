@@ -15878,6 +15878,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -15921,6 +15924,18 @@ var render = function() {
           _vm._v(" "),
           _vm._m(2)
         ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _vm._v("\n    Don't have an account "),
+          _c("router-link", { attrs: { to: { name: "register" } } }, [
+            _vm._v("Register")
+          ]),
+          _vm._v(" for a new one\n  ")
+        ],
+        1
       )
     ],
     1
@@ -17031,6 +17046,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -17054,29 +17072,36 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "login-container" },
+    { staticClass: "login-container", attrs: { id: "register" } },
     [
       _c("errors"),
       _vm._v(" "),
+      _c("form", { attrs: { action: "/register", method: "post" } }, [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf_token }
+        }),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _vm._m(4)
+      ]),
+      _vm._v(" "),
       _c(
-        "form",
-        { attrs: { id: "register", action: "/register", method: "post" } },
+        "div",
         [
-          _c("input", {
-            attrs: { type: "hidden", name: "_token" },
-            domProps: { value: _vm.csrf_token }
-          }),
-          _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._m(3),
-          _vm._v(" "),
-          _vm._m(4)
-        ]
+          _vm._v("\n    Have an account "),
+          _c("router-link", { attrs: { to: { name: "login" } } }, [
+            _vm._v("Login")
+          ])
+        ],
+        1
       )
     ],
     1

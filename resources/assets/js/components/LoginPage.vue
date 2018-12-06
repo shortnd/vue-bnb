@@ -15,6 +15,9 @@
         <button type="submit">Log In</button>
       </div>
     </form>
+    <div>
+      Don't have an account <router-link :to="{ name: 'register' }">Register</router-link> for a new one
+    </div>
   </div>
 </template>
 

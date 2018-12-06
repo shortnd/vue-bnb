@@ -1,7 +1,7 @@
 <template>
-  <div class="login-container">
+  <div id="register" class="login-container">
     <errors/>
-    <form id="register" action="/register" method="post">
+    <form action="/register" method="post">
       <input type="hidden" name="_token" :value="csrf_token">
       <div class="form-control">
         <label for="name">Name</label>
@@ -23,6 +23,9 @@
         <button type="submit">Log In</button>
       </div>
     </form>
+    <div>
+      Have an account <router-link :to="{ name: 'login' }">Login</router-link>
+    </div>
   </div>
 </template>
 
