@@ -421,3 +421,62 @@ hr {
   padding-bottom: 12px;
 } 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#register form {
+  padding-top: 40px;
+}
+@media (min-width:744px) {
+#register form {
+    padding-top:80px;
+}
+}
+#register .form-control {
+  margin-bottom: 1em;
+}
+#register input[type=text],
+#register input[type=email],
+#register input[type=password],
+#register button,
+#register label {
+  width: 100%;
+  font-size: 19px!important;
+  line-height: 24px;
+  color: #484848;
+  font-weight: 300;
+}
+#register input {
+  background-color: transparent;
+  padding: 11px;
+  border: 1px solid #dbdbdb;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+#register button {
+  background: #4fc08d;
+  color: #ffffff;
+  cursor: pointer;
+  border: #4fc08d;
+  border-radius: 4px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+} 

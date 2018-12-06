@@ -4,6 +4,7 @@ import HomePage from './components/HomePage.vue';
 import ListingPage from './components/ListingPage.vue';
 import SavedPage from './components/SavedPage.vue';
 import LoginPage from './components/LoginPage.vue';
+import RegisterPage from './components/RegisterPage.vue';
 import axios from 'axios';
 import store from './store';
 
@@ -31,6 +32,11 @@ let router = new VueRouter({
       path: '/login',
       component: LoginPage,
       name: 'login'
+    },
+    {
+      path: '/register',
+      component: RegisterPage,
+      name: 'register'
     }
   ],
   scrollBehavior (to, from, savedPostition) {
@@ -44,7 +50,8 @@ router.beforeEach((to, from, next) => {
     to.name === 'listing'
       ? store.getters.getListing(to.params.listing)
       : store.state.listing_summaries.length > 0 ||
-      to.name === 'login'
+      to.name === 'login' || 
+      to.name === 'register'
   ) {
     next();
   } else if (!serverData.path || to.path !== serverData.path) {
@@ -55,6 +62,7 @@ router.beforeEach((to, from, next) => {
       })
   } else {
     store.commit('addData', { route: to.name, data: serverData });
+    serverData.saved.forEach(id => store.commit('toggleSaved', id));
     next();
   }
 });

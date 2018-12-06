@@ -9,14 +9,18 @@
         <li v-if="$store.state.auth">
           <router-link :to="{ name: 'saved' }">Saved</router-link>
         </li>
-        <li v-if="$store.state.auth">
-          <a @click="logout">Log Out</a>
-          <form style="display:hidden" @submit.prevent="logout" id="logout">
-            <input type="hidden" name="_token" :value="csrf_token">
-          </form>
+        <li v-if="!$store.state.auth">
+          <router-link :to="{ name: 'login' }">Login</router-link>
         </li>
         <li v-else>
-          <router-link :to="{ name: 'login' }">Login</router-link>
+          <a @click="logout">Log Out</a>
+          <form 
+            style="display:hidden"
+            action="/logout" 
+            method="POST" 
+            id="logout">
+              <input type="hidden" name="_token" :value="csrf_token" />
+            </form>
         </li>
       </ul>
     </div>
@@ -39,7 +43,7 @@ export default {
   },
   methods: {
     logout() {
-      axios.post('/logout').then((res) => this.$router.push({ name: 'home' }))
+      document.getElementById('logout').submit();
     }
   }
 }

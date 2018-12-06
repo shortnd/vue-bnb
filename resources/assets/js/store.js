@@ -19,7 +19,7 @@ export default new Vuex.Store({
     },
     getListing(state) {
       return id => state.listings.find(listing => id == listing.id);
-    }
+    },
   },
   mutations: {
     toggleSaved(state, listingId) {
